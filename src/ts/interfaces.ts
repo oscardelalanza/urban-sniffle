@@ -12,7 +12,7 @@ interface ExpenseItem {
 }
 
 interface Expenses {
-  expenses:ArrayList<ExpenseItem>,
+  expenses:ExpenseItem[],
   finalCurrency:Currency,
   add(item:ExpenseItem):boolean,
   get():ExpenseItem | null,
