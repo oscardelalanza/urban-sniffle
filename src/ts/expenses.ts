@@ -33,7 +33,10 @@ class Expenses implements IExpenses {
   }
 
   getTotal(): string {
-    return '';
+    const total = this.getItems().reduce((acc, current) => {
+      return acc += this.convertCurrency(current, this.finalCurrency);
+    }, 0);
+    return `${this.finalCurrency} $${total.toFixed(2)}`;
   }
 
   remove(id: number): boolean {
