@@ -11,4 +11,11 @@ interface ExpenseItem {
   const:Price
 }
 
-export { ExpenseItem };
+interface Expenses {
+  expenses:ArrayList<ExpenseItem>,
+  finalCurrency:Currency,
+  add(item:ExpenseItem):boolean,
+  get():ExpenseItem | null,
+}
+
+export { Expenses };
