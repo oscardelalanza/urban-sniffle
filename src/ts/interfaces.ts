@@ -16,6 +16,8 @@ interface Expenses {
   finalCurrency:Currency,
   add(item:ExpenseItem):boolean,
   get():ExpenseItem | null,
+  getTotal():string,
+  remove(id:number):boolean,
 }
 
 export { Expenses };
