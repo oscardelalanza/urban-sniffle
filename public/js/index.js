@@ -1,6 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Expenses = void 0;
 var Expenses = /** @class */ (function () {
     function Expenses(currency) {
         this.count = 0;
@@ -57,7 +55,6 @@ var Expenses = /** @class */ (function () {
     };
     return Expenses;
 }());
-exports.Expenses = Expenses;
 var btnAdd = document.getElementById('btn-add');
 var title = document.getElementById('title');
 var cost = document.getElementById('cost');
@@ -65,19 +62,11 @@ var currency = document.getElementById('currency');
 var expenses = new Expenses('USD');
 var render = function () {
     var items = document.getElementById('items');
+    var html = '';
     expenses.getItems().forEach(function (item) {
         var id = item.id, title = item.title, cost = item.cost;
         var number = cost.number, currency = cost.currency;
-        var itemDiv = document.createElement('div');
-        var div = document.createElement('div');
-        itemDiv.className = 'item';
-        div.innerHTML = "<span class='currency'>" + currency + "</span> " + number;
-        itemDiv.appendChild(div);
-        div.innerHTML = "" + title;
-        itemDiv.appendChild(div);
-        div.innerHTML = "<button class=\"btn-remove\" data-id=\"" + id + "\">Eliminar</button>";
-        itemDiv.appendChild(div);
-        items.appendChild(itemDiv);
+        html += "\n      <div class=\"item\">\n        <div><span class=\"currency\">" + currency + "</span> " + number + "</div>\n        <div>" + title + "</div>\n        <div><button class=\"btn-remove\">Eliminar</button></div>\n      </div>\n    ";
     });
 };
 btnAdd.addEventListener('click', function (e) {

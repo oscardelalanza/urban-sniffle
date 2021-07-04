@@ -20,7 +20,7 @@ interface IExpenses {
   remove(id:number):boolean,
 }
 
-export class Expenses implements IExpenses {
+class Expenses implements IExpenses {
   expenses: Array<ExpenseItem>;
   finalCurrency: Currency;
   private count = 0;
@@ -88,19 +88,17 @@ const currency = <HTMLInputElement> document.getElementById('currency');
 const expenses = new Expenses('USD');
 const render = () => {
   const items = <HTMLTableSectionElement> document.getElementById('items');
+  let html = '';
   expenses.getItems().forEach(item => {
     const { id, title, cost } = item;
     const { number, currency } = cost;
-    const itemDiv:HTMLDivElement = document.createElement('div');
-    const div:HTMLDivElement = document.createElement('div');
-    itemDiv.className = 'item';
-    div.innerHTML = `<span class='currency'>${currency}</span> ${number}`;
-    itemDiv.appendChild(div);
-    div.innerHTML = `${title}`;
-    itemDiv.appendChild(div);
-    div.innerHTML = `<button class="btn-remove" data-id="${id}">Eliminar</button>`;
-    itemDiv.appendChild(div);
-    items.appendChild(itemDiv);
+    html += `
+      <div class="item">
+        <div><span class="currency">${currency}</span> ${number}</div>
+        <div>${title}</div>
+        <div><button class="btn-remove">Eliminar</button></div>
+      </div>
+    `
   })
 };
 
