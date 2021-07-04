@@ -40,17 +40,21 @@ class Expenses implements IExpenses {
     return false;
   }
 
-  private convertCurrency(item:ExpenseItem, currency:Currency) {
+  private convertCurrency(item:ExpenseItem, currency:Currency):number {
+    let value:number = item.cost.number;
+
     switch (item.cost.currency) {
       case 'USD':
-        if (currency === 'MXN') return item.cost.number * 22;
-        if (currency === 'USD') return item.cost.number;
+        if (currency === 'MXN') value = item.cost.number * 22;
+        if (currency === 'USD') value = item.cost.number;
         break;
       case 'MXN':
-        if (currency === 'MXN') return item.cost.number;
-        if (currency === 'USD') return item.cost.number / 22;
+        if (currency === 'MXN') value = item.cost.number;
+        if (currency === 'USD') value = item.cost.number / 22;
         break;
+      default:
+        value = item.cost.number;
     }
+    return value;
   }
-
 }
