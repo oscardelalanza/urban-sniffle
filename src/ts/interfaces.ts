@@ -11,13 +11,13 @@ interface ExpenseItem {
   const:Price
 }
 
-interface Expenses {
-  expenses:ExpenseItem[],
+interface IExpenses {
+  expenses:Array<ExpenseItem>,
   finalCurrency:Currency,
   add(item:ExpenseItem):boolean,
-  get():ExpenseItem | null,
+  get(index:number):ExpenseItem | null,
   getTotal():string,
   remove(id:number):boolean,
 }
 
-export { Expenses };
+export { IExpenses, ExpenseItem };
