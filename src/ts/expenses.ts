@@ -28,12 +28,29 @@ class Expenses implements IExpenses {
     })[0];
   }
 
+  getItems():Array<ExpenseItem> {
+    return this.expenses;
+  }
+
   getTotal(): string {
     return '';
   }
 
   remove(id: number): boolean {
     return false;
+  }
+
+  private convertCurrency(item:ExpenseItem, currency:Currency) {
+    switch (item.cost.currency) {
+      case 'USD':
+        if (currency === 'MXN') return item.cost.number * 22;
+        if (currency === 'USD') return item.cost.number;
+        break;
+      case 'MXN':
+        if (currency === 'MXN') return item.cost.number;
+        if (currency === 'USD') return item.cost.number / 22;
+        break;
+    }
   }
 
 }

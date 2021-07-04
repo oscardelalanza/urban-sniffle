@@ -8,7 +8,7 @@ interface Price {
 interface ExpenseItem {
   id:number,
   title:string,
-  const:Price
+  cost:Price
 }
 
 interface IExpenses {
