@@ -88,7 +88,8 @@ const currency = <HTMLInputElement> document.getElementById('currency');
 const expenses = new Expenses('USD');
 const render = () => {
   const items = <HTMLTableSectionElement> document.getElementById('items');
-  let html = '';
+  const display = <HTMLTableSectionElement> document.getElementById('display');
+   let html = '';
   expenses.getItems().forEach(item => {
     const { id, title, cost } = item;
     const { number, currency } = cost;
@@ -96,10 +97,12 @@ const render = () => {
       <div class="item">
         <div><span class="currency">${currency}</span> ${number}</div>
         <div>${title}</div>
-        <div><button class="btn-remove">Eliminar</button></div>
+        <div><button class="btn-remove" data-id="${id}">Eliminar</button></div>
       </div>
     `
-  })
+  });
+  items.innerHTML = html;
+  display.innerText = expenses.getTotal();
 };
 
 btnAdd.addEventListener('click', e => {

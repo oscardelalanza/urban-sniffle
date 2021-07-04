@@ -62,12 +62,15 @@ var currency = document.getElementById('currency');
 var expenses = new Expenses('USD');
 var render = function () {
     var items = document.getElementById('items');
+    var display = document.getElementById('display');
     var html = '';
     expenses.getItems().forEach(function (item) {
         var id = item.id, title = item.title, cost = item.cost;
         var number = cost.number, currency = cost.currency;
-        html += "\n      <div class=\"item\">\n        <div><span class=\"currency\">" + currency + "</span> " + number + "</div>\n        <div>" + title + "</div>\n        <div><button class=\"btn-remove\">Eliminar</button></div>\n      </div>\n    ";
+        html += "\n      <div class=\"item\">\n        <div><span class=\"currency\">" + currency + "</span> " + number + "</div>\n        <div>" + title + "</div>\n        <div><button class=\"btn-remove\" data-id=\"" + id + "\">Eliminar</button></div>\n      </div>\n    ";
     });
+    items.innerHTML = html;
+    display.innerText = expenses.getTotal();
 };
 btnAdd.addEventListener('click', function (e) {
     if (title.value != '' && cost.value != '' && !isNaN(parseFloat(cost.value))) {
