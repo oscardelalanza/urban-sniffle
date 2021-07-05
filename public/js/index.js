@@ -88,3 +88,4 @@ btnAdd.addEventListener('click', function (e) {
         render();
     }
 });
+render();
