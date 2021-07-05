@@ -59,7 +59,10 @@ class Expenses implements IExpenses {
   }
 
   remove(id: number): boolean {
-    return false;
+    this.expenses = this.getItems().filter(item => {
+      return item.id != id;
+    });
+    return true;
   }
 
   private convertCurrency(item:ExpenseItem, currency:Currency):number {
@@ -81,10 +84,10 @@ class Expenses implements IExpenses {
   }
 }
 
-const btnAdd = <HTMLButtonElement> document.getElementById('btn-add');
-const title = <HTMLInputElement> document.getElementById('title');
-const cost = <HTMLInputElement> document.getElementById('cost');
-const currency = <HTMLInputElement> document.getElementById('currency');
+const btnAdd:HTMLButtonElement = <HTMLButtonElement> document.getElementById('btn-add');
+const title:HTMLInputElement = <HTMLInputElement> document.getElementById('title');
+const cost:HTMLInputElement = <HTMLInputElement> document.getElementById('cost');
+const currency:HTMLInputElement = <HTMLInputElement> document.getElementById('currency');
 const expenses = new Expenses('USD');
 const render = () => {
   const items = <HTMLTableSectionElement> document.getElementById('items');
@@ -103,6 +106,13 @@ const render = () => {
   });
   items.innerHTML = html;
   display.innerText = expenses.getTotal();
+  document.querySelectorAll('.btn-remove').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const button:HTMLButtonElement = <HTMLButtonElement> e.target
+      expenses.remove(parseInt(button.getAttribute('data-id')!));
+      render();
+    });
+  });
 };
 
 btnAdd.addEventListener('click', e => {

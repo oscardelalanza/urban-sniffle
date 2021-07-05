@@ -31,7 +31,10 @@ var Expenses = /** @class */ (function () {
         return this.finalCurrency + " $" + total.toFixed(2);
     };
     Expenses.prototype.remove = function (id) {
-        return false;
+        this.expenses = this.getItems().filter(function (item) {
+            return item.id != id;
+        });
+        return true;
     };
     Expenses.prototype.convertCurrency = function (item, currency) {
         var value = item.cost.number;
@@ -71,6 +74,13 @@ var render = function () {
     });
     items.innerHTML = html;
     display.innerText = expenses.getTotal();
+    document.querySelectorAll('.btn-remove').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+            var button = e.target;
+            expenses.remove(parseInt(button.getAttribute('data-id')));
+            render();
+        });
+    });
 };
 btnAdd.addEventListener('click', function (e) {
     if (title.value != '' && cost.value != '' && !isNaN(parseFloat(cost.value))) {
